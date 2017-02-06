@@ -51,8 +51,8 @@ var projects = {
         {
             "title": "Project 3",
             "dates": "January-2017",
-            "images": [""],
-            "description": "Its a Classic Arcade Game , Frogger Clone"
+            "images": ["images/197x148.gif", "images/197x148.gif", "images/197x148.gif"],
+            "description": "Its a Classic Arcade Game , Frogger Clone . Where game loop engine was provided by Udacity and i have created player and enemies new entity and made game functional"
 
         },
 
