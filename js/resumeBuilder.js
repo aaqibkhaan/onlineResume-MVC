@@ -48,6 +48,13 @@ var projects = {
             "description": "Its a online resume porject"
 
         },
+        {
+            "title": "Project 3",
+            "dates": "January-2017",
+            "images": [""],
+            "description": "Its a Classic Arcade Game , Frogger Clone"
+
+        },
 
     ]
 };
