@@ -55,6 +55,13 @@ var projects = {
             "description": "Its a Classic Arcade Game , Frogger Clone . Where game loop engine was provided by Udacity and i have created player and enemies new entity and made game functional"
 
         },
+         {
+            "title": "Website Optimization Project",
+            "dates": "March-2017",
+            "images": ["images/197x148.gif", "images/197x148.gif"],
+            "description": "In this project I have achieved (index.html) page speed of 93/100 for mobile and desktop , and made one of the main files 60FPS"
+
+        },         
 
     ]
 };
@@ -113,6 +120,13 @@ var education = {
         "title": "HTML5 & CSS3",
         "school": "Udacity",
         "dates": "2016",
+        "url": "www.udacity.com"
+
+    }, {
+
+        "title": "Critical Path Rendering",
+        "school": "Udacity",
+        "dates": "2017",
         "url": "www.udacity.com"
 
     }]
