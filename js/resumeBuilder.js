@@ -4,9 +4,10 @@ This is empty on purpose! Your code to build the resume will go here.
 /*
  */
 
- // creating a work object which contains array of jobs 
-var work = {
-    "jobs": [{
+var model = {
+    init: function(){    
+      this.work = {
+        "jobs" : [{
             "employer": "Energy Efficient Homes Ltd",
             "title": "Manager",
             "location": "London, UK",
@@ -28,13 +29,12 @@ var work = {
             "description": "Securing the premisis and dealing with the public"
         }
 
-    ]
+    ] 
 
-};
+    };
 
-// creating an object of projects showing an array of projects
-var projects = {
-    "projects": [{
+    this.projects = {
+        "projects": [{
             "title": "Project 1 ",
             "dates": "September-2015",
             "images": ["images/197x148.gif", "images/197x148.gif"],
@@ -61,14 +61,12 @@ var projects = {
             "images": ["images/197x148.gif", "images/197x148.gif"],
             "description": "In this project I have achieved (index.html) page speed of 93/100 for mobile and desktop , and made one of the main files 60FPS"
 
-        },         
+        }         
 
     ]
-};
+    };
 
-// creating an object bio which contains all the personal information
-
-var bio = {
+    this.bio = {
     "name": "Aaqib Rashid",
     "role": "Web Developer",
     "skills": ["Awsomness", "Time Management", "Cricket Sometimes"],
@@ -82,10 +80,9 @@ var bio = {
 
     "biopic": "images/fido-dido-6.jpg",
     "welcomeMessage": "Hi Welcome to my PAGE!"
-};
+    };
 
-// creating an object education which contains information about schools and onlineCourses
-var education = {
+    this.education = {
     "schools": [{
         "name": "Middlesex University London",
         "location": "London , United Kingdom",
@@ -100,7 +97,9 @@ var education = {
         "url": "www.lcuck.com",
         "majors": ["Computer Science"],
         "dates": " Decmeber-2012"
-    }],
+    }
+    ],
+
     "onlineCourses": [{
 
         "title": "Frontend Web Developer Nanodegree",
@@ -129,17 +128,30 @@ var education = {
         "dates": "2017",
         "url": "www.udacity.com"
 
-    }]
+    }
+    ]
 };
 
-// Display function of an object bio which displays all the data from bio object
-bio.display = function() {
+}
+};
+
+
+
+var controller = {
+    init : function() {
+        model.init();
+        projectView.init();
+    },
+
+    bioDisplay : function() {
+    var bio = model.bio;
+
     var formattedName = HTMLheaderName.replace("%data%", bio.name);
     var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
 
     $("#header").prepend(formattedRole);
     $("#header").prepend(formattedName);
-
+    // caching contacts
     var formattedMobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
     $("#topContacts , #footerContacts").append(formattedMobile);
 
@@ -166,37 +178,34 @@ bio.display = function() {
         }
     }
 
-};
-// Display function of an object work which displays all the data from work object
-work.display = function () {
-    // body...
+    }, // end of bio Display function
+
+
+    workDisplay : function () {
+    var work = model.work;
     $("#workExperience").append(HTMLworkStart);
     work.jobs.forEach(function(job) {
         var formattedWork = HTMLworkEmployer.replace("%data%", job.employer);
         var formattedTitle = HTMLworkTitle.replace("%data%", job.title);
         var formattedWorkTitle = formattedWork + formattedTitle;
-        $(".work-entry:last").append(formattedWorkTitle);
         var formattedDate = HTMLworkDates.replace("%data%", job.dates);
-        $(".work-entry:last").append(formattedDate);
         var formattedLocation = HTMLworkLocation.replace("%data%", job.location);
-        $(".work-entry:last").append(formattedLocation);
         var formattedDescription = HTMLworkDescription.replace("%data%", job.description);
-        $(".work-entry:last").append(formattedDescription);
+        $(".work-entry:last").append(formattedWorkTitle + formattedDate + formattedLocation + formattedDescription);
     });
-};
+    } , // end of workDisplay
 
-// Display function of an object projects which displays all the data from projects object
-projects.display = function() {
+    projectDisplay : function() {
+
     $("#projects").append(HTMLprojectStart);
-    projects.projects.forEach(function(project) {
+    model.projects.projects.forEach(function(project) {
         var formattedProjectTitle = HTMLprojectTitle.replace("%data%", project.title);
-        $(".project-entry:last").append(formattedProjectTitle);
 
         var formattedProjectDates = HTMLprojectDates.replace("%data%", project.dates);
-        $(".project-entry:last").append(formattedProjectDates);
 
         var formattedProjectDescription = HTMLprojectDescription.replace("%data%", project.description);
-        $(".project-entry:last").append(formattedProjectDescription);
+        $(".project-entry:last").append(formattedProjectTitle + formattedProjectDates + formattedProjectDescription);
+        
         if (project.images.length > 0) {
             project.images.forEach(function(image) {
 
@@ -208,21 +217,17 @@ projects.display = function() {
         }
 
     });
-};
+    }, // end of projectDisplay    
 
-
-
-// Display function of an object education  which displays all the data from education object
-education.display = function() {
+    // Display function of an object education  which displays all the data from education object
+educationDisplay : function() {
     $("#education").append(HTMLschoolStart);
-    education.schools.forEach(function(school) {
+    model.education.schools.forEach(function(school) {
             var formattedSchoolName = HTMLschoolName.replace("%data%", school.name);
             var formattedSchoolDegree = HTMLschoolDegree.replace("%data%", school.degree);
-            $(".education-entry:last").append(formattedSchoolName + formattedSchoolDegree);
             var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", school.location);
-            $(".education-entry:last").append(formattedSchoolLocation);
             var formattedSchoolDates = HTMLschoolDates.replace("%data%", school.dates);
-            $(".education-entry:last").append(formattedSchoolDates);
+            $(".education-entry:last").append(formattedSchoolName + formattedSchoolDegree + formattedSchoolLocation + formattedSchoolDates);
             
             if (school.majors.length > 0) {
                 for (var a = 0; a < school.majors.length; a++) {
@@ -234,23 +239,36 @@ education.display = function() {
 
     $("#education").append(HTMLonlineClasses);
     $("#education").append(HTMLschoolStart);
-    education.onlineCourses.forEach(function(course) {
+    model.education.onlineCourses.forEach(function(course) {
 
         var formattedOnlineSchoolTitle = HTMLonlineTitle.replace("%data%", course.title);
         var formattedOnlineSchool = HTMLonlineSchool.replace("%data%", course.school);
-        $(".education-entry:last").append(formattedOnlineSchoolTitle + formattedOnlineSchool);
         var formattedOnlineSchoolDates = HTMLonlineDates.replace("%data%", course.dates);
-        $(".education-entry:last").append(formattedOnlineSchoolDates);
         var formattedOnlineSchoolUrl = HTMLonlineURL.replace("%data%", course.url);
-        $(".education-entry:last").append(formattedOnlineSchoolUrl);
+
+        $(".education-entry:last").append(formattedOnlineSchoolTitle + formattedOnlineSchool + formattedOnlineSchoolDates + formattedOnlineSchoolUrl);
         
     });
+    }, // end of educationDisplay
+
+}; // end of Controller
+
+var projectView = {
+    init: function () {
+        controller.bioDisplay();
+        controller.projectDisplay();
+        controller.workDisplay();
+        controller.educationDisplay();
+
+    },
+
+    render: function() {
+
+    },
+
 };
 
+controller.init();
 
-bio.display();
-projects.display();
-work.display();
-education.display();
 
 $("#mapDiv").append(googleMap);
